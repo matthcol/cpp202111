@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <cmath>
 
 // using namespace std;
 
@@ -215,7 +216,7 @@ void bouclFor() {
     }
 }
 
-int main () {
+void manipulateurFlot() {
     bool isOk = true;
     double temperature = 12.444444444;
     int distance = 65;
@@ -232,6 +233,69 @@ int main () {
         << std::scientific  << temperature << ", " << 3.14E12 << std::endl;
 
 
+}
+
+
+double calcul(double x) {
+    return ((x * 4.0) + 7.3) / 2.0; 
+}
+
+double calcul2(double x, double y) {
+    return ((x * 4.0) + y) / 2.0; 
+}
+
+
+void appelFonction() {
+    double d = 25.0;
+
+    // appel de fonction : sqrt
+    auto res = sqrt(d);
+    std::cout << res << std::endl;
+
+    auto res2 = calcul(d);
+    std::cout << res2 << std::endl;
+
+    auto res3 = calcul(7.3);
+    std::cout << res3 << std::endl;
+
+    // auto res4 = calcul("toto");
+    // std::cout << res4 << std::endl;
+
+    auto res4 = calcul(25);
+    std::cout << res4 << std::endl; 
+
+    auto res5 = calcul2(d, res4);
+    std::cout << res5 << std::endl; 
+
+    auto res6 = calcul2(sqrt(d), calcul(7.4));
+    std::cout << res6 << std::endl; 
+}
+
+// fonction pgcd
+//   arguments a et b sont passés par copie
+int pgcd(int a, int b) {
+    int r;
+    do {
+        r = a % b;
+        a = b;
+        b = r;
+    } while (r!=0);
+    // std::cout << "pgcd : " << &a << ", " << &b << ", " << &r << std::endl;
+    return a;
+}
+
+
+void appelEuclide() {
+    int a = 24;
+    int b = 18;
+    int p = pgcd(a, b);
+    std::cout << "Le pgcd de " << a << " et " << b << " est " << p << std::endl;
+    // std::cout <<  "appelEuclide : " << &a << ", " << &b << ", " << &p << std::endl;
+}
+
+int main () {
+    // appelFonction();
+    appelEuclide();
 }
 
 

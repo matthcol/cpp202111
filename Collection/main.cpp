@@ -1,6 +1,34 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <set>
+
+// template <class T>
+// void displayVector(const std::vector<T> & vector) {
+//     // vector.push_back(99999999);  // interdit avec le const
+//     for (auto d : vector) {
+//         std::cout << d << std::endl;
+//     }
+// }
+
+template <class C>
+void displayContainer(const C & container) {
+    // vector.push_back(99999999);  // interdit avec le const
+    for (auto d : container) {
+        std::cout << d << std::endl;
+    }
+}
+
+template <class InputIterator>
+void display(InputIterator first, InputIterator last){
+    for ( ; first != last; ++first) {
+        auto d = *first;
+        // std::cout << *first << std::endl;
+        std::cout << d << std::endl;
+    }
+}
+
+
 
 int main() {
     // construction
@@ -21,22 +49,26 @@ int main() {
     // operator << non défini entre ostream (cout) et vector<double> 
     // std::cout << temperatures  << std::endl;
 
-    for (auto temperature : temperatures) {
-        std::cout << "T = " << temperature << std::endl;
-    }
+    displayContainer(temperatures);  // T=double
+    // for (auto temperature : temperatures) {
+    //     std::cout << "T = " << temperature << std::endl;
+    // }
 
     // parcours d'un tableau vide
-    for (auto d : distances) {
-        std::cout << "d = " << d << std::endl;
-    }
+    displayContainer(distances);
+    // for (auto d : distances) {
+    //     std::cout << "d = " << d << std::endl;
+    // }
 
-    for (auto v : villes) {
-        std::cout << "v = " << v << std::endl;
-    }
+    displayContainer(villes);  // T=std::string
+    // for (auto v : villes) {
+    //     std::cout << "v = " << v << std::endl;
+    // }
 
-    for (auto temperature : temperaturesArchive) {
-        std::cout << "Ta = " << temperature << std::endl;
-    }
+    displayContainer(temperaturesArchive);
+    // for (auto temperature : temperaturesArchive) {
+    //     std::cout << "Ta = " << temperature << std::endl;
+    // }
 
     // utilisation des iterateur de maniere explicite
     // auto it   => std::vector<double>::iterator
@@ -47,15 +79,17 @@ int main() {
     }
 
     // auto it   => std::vector<double>::reverse_iterator
-    for (auto it = temperatures.rbegin() ; it != temperatures.rend(); ++it) {
-        auto t = *it;
-        std::cout << "tr = " << t << std::endl;
-    }
+    display(temperatures.rbegin(), temperatures.rend());
+    // for (auto it = temperatures.rbegin() ; it != temperatures.rend(); ++it) {
+    //     auto t = *it;
+    //     std::cout << "tr = " << t << std::endl;
+    // }
 
-    for (auto it = temperatures.begin()+1 ; it != temperatures.end()-1; ++it) {
-        auto t = *it;
-        std::cout << "t_ = " << t << std::endl;
-    }
+    display(temperatures.begin()+1, temperatures.end()-1);
+    // for (auto it = temperatures.begin()+1 ; it != temperatures.end()-1; ++it) {
+    //     auto t = *it;
+    //     std::cout << "t_ = " << t << std::endl;
+    // }
 
     for (auto it = std::next(temperatures.begin(), 2) ; 
         it != std::next(temperatures.end(), -1); 
@@ -84,9 +118,29 @@ int main() {
             todayTemperatures.begin(),
             todayTemperatures.end());
 
-     for (auto temperature : temperatures) {
+    for (auto temperature : temperatures) {
         std::cout << "_T_ = " << temperature << std::endl;
     }
+
+    // temperatures[9] =  20;
+    // temperatures[temperatures.size()-1] = 20;
+
+    auto it = temperatures.end() - 1;
+    *it = 20;
+
+    for (auto temperature : temperatures) {
+        std::cout << "___T___ = " << temperature << std::endl;
+    }
+
+    // pas de doublons, ordonné de manière croissante (<)
+    std::set<double> setTemperatures (temperatures.begin(), temperatures.end());
+    setTemperatures.insert(15.3);
+    setTemperatures.insert(4.5);
+    
+    displayContainer(setTemperatures);
+    // for (auto t : setTemperatures) {
+    //     std::cout << "Ts = " << t << std::endl;
+    // }
 
     // return 0;
     return EXIT_SUCCESS;
