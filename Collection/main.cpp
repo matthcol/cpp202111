@@ -11,23 +11,31 @@
 //     }
 // }
 
+
+template <class InputIterator>
+void display(InputIterator first, InputIterator last, const std::string & sep = ", "){
+    std::cout << "[";
+    if (first != last) {
+        std::cout << *first;
+        ++first;
+        // pour les elements suivants le 1er
+        for ( ; first != last; ++first) {
+            auto d = *first;
+            // std::cout << *first << std::endl;
+            std::cout << sep << d; 
+        }
+    }
+    std::cout << "]" << std::endl;
+}
+
 template <class C>
 void displayContainer(const C & container) {
     // vector.push_back(99999999);  // interdit avec le const
-    for (auto d : container) {
-        std::cout << d << std::endl;
-    }
+    // for (auto d : container) {
+    //     std::cout << d << std::endl;
+    // }
+    display(container.cbegin(), container.cend());
 }
-
-template <class InputIterator>
-void display(InputIterator first, InputIterator last){
-    for ( ; first != last; ++first) {
-        auto d = *first;
-        // std::cout << *first << std::endl;
-        std::cout << d << std::endl;
-    }
-}
-
 
 
 int main() {
@@ -85,7 +93,7 @@ int main() {
     //     std::cout << "tr = " << t << std::endl;
     // }
 
-    display(temperatures.begin()+1, temperatures.end()-1);
+    display(temperatures.begin()+1, temperatures.end()-1, " ; ");
     // for (auto it = temperatures.begin()+1 ; it != temperatures.end()-1; ++it) {
     //     auto t = *it;
     //     std::cout << "t_ = " << t << std::endl;
