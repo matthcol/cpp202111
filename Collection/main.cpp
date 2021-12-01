@@ -159,10 +159,46 @@ void demoMemoire() {
     std::cin >> c;  
 }
 
+void memoryReferencePointer(){
+    double d = 3.14;
+    double & rdist = d;
+    std::cout << d << ", " << (rdist * 2.3) << std::endl;
+    d = 1.2;
+    std::cout << d << ", " << (rdist * 2.3) << std::endl;
+    rdist = 5.0;
+    std::cout << d << ", " << (rdist * 2.3) << std::endl; 
+    double * pdist = nullptr;
+    pdist = &d;
+    std::cout << pdist << ", " << *pdist << std::endl;   
+    *pdist = 12.3;
+    std::cout << pdist << ", " << *pdist << std::endl;  
+    pdist = new double(3);  // allocation dynamique dans le HEAP
+    std::cout << pdist << ", " << *pdist << std::endl;  
+    delete pdist; // desallouer la zone memoire
+    // std::cout << pdist << ", " << *pdist << std::endl;  
+    pdist = nullptr; // securité de code
+    std::cout << pdist << ", " << *pdist << std::endl; 
+}
+
 int main() {
-    char c;
-    demoMemoire();
-    std::cin >> c; 
+    // char c;
+    // demoMemoire();
+    // std::cin >> c; 
+
+    double data[100]; // type double[]
+    display(std::begin(data), std::end(data));
+    data[0] = 3.14;
+    data[1] = 23.4;
+    display(std::begin(data), std::begin(data)+2); 
+    std::cout << (data[0] + data[1]) << std::endl;
+
+    // table de double alloue dynamiquement (HEAP)
+    double * bigdata = new double[500000000]; 
+    bigdata[0] = 3.14;
+    bigdata[1] = 23.4;
+    display(bigdata, bigdata+10); 
+    delete[] bigdata;
+
     // return 0;
     return EXIT_SUCCESS;
 }
