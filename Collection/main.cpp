@@ -38,7 +38,7 @@ void displayContainer(const C & container) {
 }
 
 
-int main() {
+void playWithConollections() {
     // construction
     // 1 classe = 1 type complexe
     // temperatures est 1 objet de la classe std::vector
@@ -149,7 +149,20 @@ int main() {
     // for (auto t : setTemperatures) {
     //     std::cout << "Ts = " << t << std::endl;
     // }
+}
 
+void demoMemoire() {
+    char c;
+    std::vector<int8_t> data(2000000000, 65);
+    std::cout << "Tableau cree" << std::endl;
+    display(data.begin(), data.begin()+10);
+    std::cin >> c;  
+}
+
+int main() {
+    char c;
+    demoMemoire();
+    std::cin >> c; 
     // return 0;
     return EXIT_SUCCESS;
 }
