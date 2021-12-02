@@ -19,6 +19,8 @@ public:
     void setResistivite(double resistivite);
 
     virtual std::string toString() const override;
+
+    // virtual int f(int x)=0; // methode virtual pure (abstraite)  =0
 };
 
 #endif // !_LIGNE_RESISITIVE_

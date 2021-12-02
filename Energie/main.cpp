@@ -2,6 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <list>
+#include <algorithm>
+#include <numeric>
 
 #include "Ligne.h"
 #include "LigneResistive.h"
@@ -111,7 +114,7 @@ void containerLigne(){
 
 }
 
-int main() {
+void heritage() {
     Ligne l1("PAU1", 1500, 1000);
 
     // 1 LigneResistive est 1 Ligne 
@@ -139,6 +142,91 @@ int main() {
     delete ptr_ligne;
 
     std::cin >> c;  // attente clavier
+}
+
+bool greaterInt(int a, int b) {
+    return a > b;
+}
+
+int main() {
+    Ligne l1("PAU1", 1500, 1000);
+    Ligne l2("GRAUROI1", 1800, 1100);
+    Ligne l3("MURET1", 1300, 800);
+
+    std::vector<Ligne> vLignes {l1, l2, l3};
+    std::vector<int> capacites {1000, 800, 1200};
+    std::list<int> lCapacites {1000, 800, 1200};
+
+    // algo tri : n log(n)
+    // tri suivant le < du type int : ordre croissant
+    std::sort(capacites.begin(), capacites.end());
+    displayContainer(capacites);
+
+    // ordre decroissant : operator >
+    // std::sort(capacites.begin(), capacites.end(), greaterInt);
+    // displayContainer(capacites);
+
+    // ordre decroissant : operator >
+    std::sort(capacites.begin(), capacites.end(), std::greater<int>() );
+    displayContainer(capacites);
+
+
+    // tri interdit car l'iterateur de list n'est pas un RandomAccessIterator
+    // => trop couteux
+    // std::sort(lCapacites.begin(), lCapacites.end());
+
+    // sort avec l'operator< de Ligne
+    std::sort(vLignes.begin(), vLignes.end());
+    displayContainer(vLignes);
+
+    // tri avec ordre custom sous la forme d'une lambda fonction
+    // https://en.cppreference.com/w/cpp/language/lambda
+    std::sort(vLignes.begin(), vLignes.end(), 
+        // [](const auto &l1, const auto &l2) {
+        // [](const auto &l1, const auto &l2)->bool {
+        [](const Ligne &l1, const Ligne &l2)->bool {
+            return l1.nom() < l2.nom();
+        }
+    );
+    displayContainer(vLignes);
+
+
+    // somme des capacites
+    // int somme =0;
+    // for (auto c : capacites) {
+    //     somme += c;
+    // }
+    int somme = std::accumulate(capacites.begin(), capacites.end(), 0);
+    std::cout << "Total capacites : " << somme << std::endl;
+
+    int reste = std::accumulate(capacites.begin(), capacites.end(), 5000, std::minus<int>());
+    std::cout << "Total capacites : " << reste << std::endl;
+
+    int sommeCustom = std::accumulate(capacites.begin(), capacites.end(), 0, 
+            [](auto c1, auto c2){ return c1 + 2*c2;}
+            );
+    std::cout << "Total capacites : " << sommeCustom << std::endl;
+
+    int coeff = 3;
+    int sommeCustom2 = std::accumulate(capacites.begin(), capacites.end(), 0, 
+            [coeff](auto c1, auto c2){ return c1 + coeff*c2;}  // capture par copie
+            // [&coeff](auto c1, auto c2){ return c1 + coeff*c2;} // capture par ref
+            // [=](auto c1, auto c2){ return c1 + coeff*c2;} // capture tt var par copie
+            // [&](auto c1, auto c2){ return c1 + coeff*c2;} // capture tt var par ref
+            );
+    std::cout << "Total capacites : " << sommeCustom2 << std::endl;
+
+    // somme des capacites reelles des lignes de vLigne
+
+    // utiliser find_if pour trouver la 1ere capacité < 1100
+
+    // utiliser find_if pour trouver la 1ere Ligne dont la capacité reelle < 1000
+
+
+
+
+    std::fill(capacites.begin(), capacites.end(), 0);
+    displayContainer(capacites);
 
     return EXIT_SUCCESS;
 }  
