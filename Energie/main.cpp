@@ -125,6 +125,7 @@ int main() {
     //      appel de LigneResistivie::toString (si virtual)
     std::cout << l2 << std::endl; 
     
+    // test
     // appel de LigneResistive::toString
     std::cout << l2.toString() << std::endl;
 
