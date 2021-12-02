@@ -17,6 +17,7 @@ public:
     Ligne(const std::string & nom, int capaciteMax, int capaciteReelle);
     // destructeur
     // nb : virtual => pratique pour une specialisation de cette classe
+    // ~Ligne(); 
     virtual ~Ligne(); 
 
     // surcharges operateurs

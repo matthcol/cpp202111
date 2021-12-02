@@ -129,6 +129,17 @@ int main() {
     // appel de LigneResistive::toString
     std::cout << l2.toString() << std::endl;
 
+    Ligne * ptr_ligne = new LigneResistive("MURET1", 1500, 1000, 22.7);
+    std::cout << (*ptr_ligne) << std::endl;
+
+    char c;
+    std::cin >> c;  // attente clavier
+
+     // call destructeur(s) : les 2 si virtual, seulement celui Ligne si pas virtual
+    delete ptr_ligne;
+
+    std::cin >> c;  // attente clavier
+
     return EXIT_SUCCESS;
 }  
 

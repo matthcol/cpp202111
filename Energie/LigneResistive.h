@@ -6,11 +6,13 @@
 class LigneResistive: public Ligne {
 private:
     double m_resistivite;
+    int8_t * m_buffer;
 
 public:
     LigneResistive();
     LigneResistive(const std::string & nom, int capaciteMax, 
             int capaciteReelle, double resistivite);
+    // ~LigneResistive();
     virtual ~LigneResistive();
 
     double resistivite() const;
