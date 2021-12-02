@@ -4,6 +4,7 @@
 #include <set>
 
 #include "Ligne.h"
+#include "LigneResistive.h"
 #include "tools.h"
 
 
@@ -64,16 +65,73 @@ void callBeginWithLine() {
     delete ptr_ligne;
 }
 
-int main() {
+void containerLigne(){
     Ligne l1("PAU1", 1500, 1000);
     Ligne l2("GRAUROI1", 1800, 1100);
     Ligne l3("MURET1", 1300, 800);
 
     std::vector<Ligne> vLignes {l1, l2, l3};
+
+    l1.setCapaciteReelle(1200);
+
     std::set<Ligne> sLignes {l1, l2, l3};
+
+    l1.setCapaciteReelle(1300);
+
+    std::cout << l1 << std::endl;
+    std::cerr << l2 << std::endl;
 
     displayContainer(vLignes);
     displayContainer(sLignes);
+
+    Ligne l = vLignes[0];  // copie =
+    l.setCapaciteReelle(200);
    
+    displayContainer(vLignes);
+    std::cout << l << std::endl;
+
+    Ligne & rl = vLignes[0];  
+    rl.setCapaciteReelle(200);
+
+    displayContainer(vLignes);
+    std::cout << rl << std::endl;
+
+    std::cout.precision(2);
+    // std::cout << std::fixed << l1.pourcentageCharge() << std::endl;
+    std::cout << std::scientific << l1.pourcentageCharge() << std::endl;
+
+    // afficher le pourcentage de charge des lignes du vecteur
+    for (const auto & ligne : vLignes) {
+        std::cout << std::scientific << l1.pourcentageCharge() << std::endl;
+    }
+
+    // pour partager les donnees en entree dans un container :
+    // std::vector<Ligne &> vrLignes;  // NOK : pointeur sur reference interdit
+    // std::vector<Ligne *> vpLignes; // OK 
+
+}
+
+int main() {
+    Ligne l1("PAU1", 1500, 1000);
+
+    // 1 LigneResistive est 1 Ligne 
+    LigneResistive l2("GRAUROI1", 1800, 1100, 22.8);
+
+    std::cout << l1 << std::endl;
+
+    // operator<<(ostream&, const Ligne&) appelé
+    // grace au mecanisme de substitution (heritage)
+    //      appel de Lig (si pas virtual)
+    //      appel de LigneResistivie::toString (si virtual)
+    std::cout << l2 << std::endl; 
+    
+    // appel de LigneResistive::toString
+    std::cout << l2.toString() << std::endl;
+
     return EXIT_SUCCESS;
 }  
+
+
+
+
+

@@ -3,6 +3,14 @@
 
 #include <string>
 
+/**
+ * @brief afficher sur std::cout les elements parcourus
+ * 
+ * @tparam InputIterator 
+ * @param first 
+ * @param last 
+ * @param sep 
+ */
 template <class InputIterator>
 void display(InputIterator first, InputIterator last, const std::string & sep = ", "){
     std::cout << "[";
@@ -18,6 +26,12 @@ void display(InputIterator first, InputIterator last, const std::string & sep = 
     std::cout << "]" << std::endl;
 }
 
+/**
+ * @brief Affichesur std::cout les elements du container
+ * 
+ * @tparam C 
+ * @param container 
+ */
 template <class C>
 void displayContainer(const C & container) {
     display(container.cbegin(), container.cend());

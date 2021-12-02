@@ -2,6 +2,7 @@
 #define _LIGNE_
 
 #include <string>
+#include <iostream>
 
 class Ligne {
 private:
@@ -18,6 +19,13 @@ public:
     // nb : virtual => pratique pour une specialisation de cette classe
     virtual ~Ligne(); 
 
+    // surcharges operateurs
+    bool operator==(const Ligne & other) const;
+    bool operator!=(const Ligne & other) const;
+
+    //   <  d'apres la capacite max
+    bool operator<(const Ligne & other) const;
+
     // accesseurs : getters and setters
     const std::string & nom() const;
     void setNom(const std::string & nom);
@@ -28,6 +36,15 @@ public:
     int capaciteReelle() const;
     void setCapaciteReelle(int capaciteReelle);
 
+    // methodes supplementaires
+    virtual std::string toString() const;
+
+    // pourcentageCharge = cap reelle / cap max
+    double pourcentageCharge() const;
+
 };
+
+std::ostream & operator<<(std::ostream & out, const Ligne & ligne);
+
 
 #endif // _LIGNE_
