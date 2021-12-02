@@ -4,7 +4,7 @@
 #include <set>
 
 #include "Ligne.h"
-// #include "Ligne.h"
+#include "tools.h"
 
 
 Ligne * beginWithLine() {
@@ -30,6 +30,8 @@ Ligne * beginWithLine() {
     // std::cout << ligne2;
     std::cout << "Egal : " << std::boolalpha << (ligne == ligne2) << std::endl;
     std::cout << "Inegal : " << std::boolalpha << (ligne != ligne2) << std::endl;
+    std::cout << "Inerieur : " << std::boolalpha << (ligne < ligne2) << std::endl;
+    // std::cout << "Superieur : " << std::boolalpha << (ligne > ligne2) << std::endl;
     // std::cout << boolalpha << (ligne < ligne2);
     // std::cout << (ligne + ligne2);
     // ligne += 100;
@@ -69,6 +71,9 @@ int main() {
 
     std::vector<Ligne> vLignes {l1, l2, l3};
     std::set<Ligne> sLignes {l1, l2, l3};
+
+    displayContainer(vLignes);
+    displayContainer(sLignes);
    
     return EXIT_SUCCESS;
 }  
