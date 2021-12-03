@@ -81,6 +81,35 @@ bool lireLignesCSV(const std::string & filename, OutputIterator result) {
     return true;
 }
 
+template <class OutputIterator>
+bool lireLignesCSVre(const std::string & filename, OutputIterator result) {
+    // ouvrir fin en lecture sur le fichier filename
+    std::fstream fin(filename, std::fstream::in);
+    if (!(fin.is_open())) {
+        return false;
+    }
+
+    // lecture ligne par ligne dans un buffer
+    char buffer[255];
+
+    // lecture jusqu'à atteindre EOF
+    while (fin.getline(buffer, 255)) {
+        // construire un string a partir du buffer
+        std::string ligne(buffer);
+        
+        
+        Ligne ligneEnergie(nom, std::stoi(str_capaciteMax), std::stoi(str_capaciteReelle));
+        // ecrire la ligne avec l'iterateur en sortie
+        *result = ligneEnergie;
+        ++result;
+    }
+    // fermer le fichier
+    fin.close();
+    return true;
+}
+
+
+
 template <class InputIterator>
 bool ecrireLignesCSV(const std::string & filename, InputIterator first, InputIterator last){
     std::fstream fout(filename, std::fstream::out | std::fstream::trunc);
