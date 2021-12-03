@@ -264,7 +264,7 @@ void testPair() {
 
 void testLectureLignes() {
     std::vector<Ligne> lignes(10);
-    if (lireLignesCSV("lignes.csv", lignes.begin())) {
+    if (lireLignesCSVre("lignes.csv", lignes.begin())) {
         // exploiter le resultat
         displayContainer(lignes);
     } else {
@@ -290,8 +290,8 @@ void testEcritureLigne() {
 }
 
 int main() {
-    //testLectureLignes();
-    testEcritureLigne();
+    testLectureLignes();
+    // testEcritureLigne();
 
 
     return EXIT_SUCCESS;

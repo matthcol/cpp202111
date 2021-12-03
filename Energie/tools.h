@@ -3,6 +3,8 @@
 
 #include <string>
 #include <fstream>
+#include <regex>
+#include <algorithm>
 
 /**
  * @brief afficher sur std::cout les elements parcourus
@@ -92,16 +94,24 @@ bool lireLignesCSVre(const std::string & filename, OutputIterator result) {
     // lecture ligne par ligne dans un buffer
     char buffer[255];
 
+    std::regex pattern("[A-Z0-9]+");
     // lecture jusqu'à atteindre EOF
     while (fin.getline(buffer, 255)) {
         // construire un string a partir du buffer
         std::string ligne(buffer);
+        std::regex_iterator<std::string::iterator> it(ligne.begin(), ligne.end(), pattern);
+        std::regex_iterator<std::string::iterator> end; // utile si boucle ou analyse de fin
         
-        
-        Ligne ligneEnergie(nom, std::stoi(str_capaciteMax), std::stoi(str_capaciteReelle));
-        // ecrire la ligne avec l'iterateur en sortie
-        *result = ligneEnergie;
-        ++result;
+        std::for_each(it, end, 
+            [](const auto& trouve){ 
+                std::cout << trouve.str() << std::endl;
+            }
+        );
+
+        // Ligne ligneEnergie(nom, std::stoi(str_capaciteMax), std::stoi(str_capaciteReelle));
+        // // ecrire la ligne avec l'iterateur en sortie
+        // *result = ligneEnergie;
+        // ++result;
     }
     // fermer le fichier
     fin.close();
