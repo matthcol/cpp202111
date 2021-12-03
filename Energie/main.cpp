@@ -5,6 +5,10 @@
 #include <list>
 #include <algorithm>
 #include <numeric>
+#include <utility>
+// C++20
+// #include <numbers>
+// #include <format>
 
 #include "Ligne.h"
 #include "LigneResistive.h"
@@ -148,8 +152,8 @@ bool greaterInt(int a, int b) {
     return a > b;
 }
 
-int main() {
-    Ligne l1("PAU1", 1500, 1000);
+void algorithms() {
+        Ligne l1("PAU1", 1500, 1000);
     Ligne l2("GRAUROI1", 1800, 1100);
     Ligne l3("MURET1", 1300, 800);
 
@@ -217,8 +221,22 @@ int main() {
     std::cout << "Total capacites : " << sommeCustom2 << std::endl;
 
     // somme des capacites reelles des lignes de vLigne
+    int sommeCapacitReelles = std::accumulate(vLignes.begin(), vLignes.end(), 0,
+        [](auto a, const auto &l){
+            return a + l.capaciteReelle();
+        }
+    );
 
     // utiliser find_if pour trouver la 1ere capacité < 1100
+    auto it = std::find_if(capacites.begin(), capacites.end(),
+        [](auto c){return c < 1100;}
+    );
+    if (it != capacites.end()) {
+        int capacite = *it;
+        std::cout << "Capacite trouvee : " << std::endl;
+    } else {
+        std::cout << "Aucune Capacite trouvee : " << std::endl;
+    }
 
     // utiliser find_if pour trouver la 1ere Ligne dont la capacité reelle < 1000
 
@@ -227,6 +245,54 @@ int main() {
 
     std::fill(capacites.begin(), capacites.end(), 0);
     displayContainer(capacites);
+
+}
+
+// exemple d'utilisation de paire
+// pour 3 et + elements : voir std::tuple, std::make_tuple, std::get<pos>(t)
+std::pair<int,int> lireCapaciteCapteur() {
+    // capacite Max, capacite Reelle
+    // std::pair<int,int> res(1500, 1200);
+    // return res;
+    return std::make_pair(1500, 1200);
+}
+
+void testPair() {
+    auto capacites = lireCapaciteCapteur();
+    std::cout << capacites.first << ", " << capacites.second << std::endl;
+}
+
+void testLectureLignes() {
+    std::vector<Ligne> lignes(10);
+    if (lireLignesCSV("lignes.csv", lignes.begin())) {
+        // exploiter le resultat
+        displayContainer(lignes);
+    } else {
+        std::cout << "Pb pendant la lecture du fichier" << std::endl;
+    }
+}
+
+void testEcritureLigne() {
+    Ligne l1("PAU1", 1500, 1000);
+    Ligne l2("GRAUROI1", 1800, 1100);
+    Ligne l3("MURET1", 1300, 800);
+
+    std::vector<Ligne> vLignes {l1, l2, l3};
+
+    // std::cout << l1 << std::endl;
+    
+    if (ecrireLignesCSV("lignes2.csv", vLignes.cbegin(), vLignes.cend())) {
+        std::cout << "Lignes sauvees avec succes" << std::endl;
+    } else{
+        std::cout << "Probleme lors de la sauvegarde" << std::endl;
+    }
+    // ecrireLignesCSV("lignes2.csv", vLignes.cbegin(), vLignes.cbegin()+2);
+}
+
+int main() {
+    //testLectureLignes();
+    testEcritureLigne();
+
 
     return EXIT_SUCCESS;
 }  
