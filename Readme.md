@@ -7,7 +7,7 @@
 
 ## 2. Exemples
 
-Vous trouverez ce repository l'ensemble des codes C++ réalisés pendant le stage.
+Vous trouverez dans ce repository l'ensemble des codes C++ réalisés pendant le stage.
 
 - Basics : les bases du langage C++
 - Collection : les containers de C++
