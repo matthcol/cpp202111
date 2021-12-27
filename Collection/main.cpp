@@ -3,14 +3,6 @@
 #include <vector>
 #include <set>
 
-// template <class T>
-// void displayVector(const std::vector<T> & vector) {
-//     // vector.push_back(99999999);  // interdit avec le const
-//     for (auto d : vector) {
-//         std::cout << d << std::endl;
-//     }
-// }
-
 
 template <class InputIterator>
 void display(InputIterator first, InputIterator last, const std::string & sep = ", "){
@@ -30,10 +22,8 @@ void display(InputIterator first, InputIterator last, const std::string & sep = 
 
 template <class C>
 void displayContainer(const C & container) {
-    // vector.push_back(99999999);  // interdit avec le const
-    // for (auto d : container) {
-    //     std::cout << d << std::endl;
-    // }
+    // Illustrating usage of const, the following instruction is forbidden
+    // vector.push_back(99999999);  
     display(container.cbegin(), container.cend());
 }
 
