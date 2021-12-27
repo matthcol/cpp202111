@@ -12,19 +12,33 @@
  * @param sep separator used between each item
  */
 template <class InputIterator>
-void display(InputIterator first, InputIterator last, const std::string & sep = ", "){
+void display(
+    InputIterator first, 
+    InputIterator last, 
+    const std::string & sep = ", ",
+    const std::string & delimiterFirst = "[ ",
+    const std::string & delimiterLast = " ]",
+    bool endline = true)
+{
+    // begin display with delimiterFirst
     std::cout << "[";
     if (first != last) {
+        // display first element
         std::cout << *first;
         ++first;
-        // pour les elements suivants le 1er
+        // display following elements
         for ( ; first != last; ++first) {
-            auto d = *first;
-            // std::cout << *first << std::endl;
+            // The following 2 lines can be written in one without local variable
+            auto d = *first; // accessing element
             std::cout << sep << d; 
         }
     }
-    std::cout << "]" << std::endl;
+    // ending display with delimiterLast
+    std::cout << delimiterLast;
+    // optional endline
+    if (endline) {
+        std::cout << std::endl;
+    }
 }
 
 template <class Container>
