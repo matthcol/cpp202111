@@ -3,7 +3,14 @@
 #include <vector>
 #include <set>
 
-
+/**
+ * @brief display iterable items on one line [e1, e2, ..., en]
+ * Operator << must be defined for the items displayed
+ * @tparam InputIterator type of iterator used to display items
+ * @param first iterator on the first item to display (included)
+ * @param last iterator on the last item (excluded)
+ * @param sep separator used between each item
+ */
 template <class InputIterator>
 void display(InputIterator first, InputIterator last, const std::string & sep = ", "){
     std::cout << "[";
@@ -20,8 +27,8 @@ void display(InputIterator first, InputIterator last, const std::string & sep = 
     std::cout << "]" << std::endl;
 }
 
-template <class C>
-void displayContainer(const C & container) {
+template <class Container>
+void displayContainer(const Container & container) {
     // Illustrating usage of const, the following instruction is forbidden
     // vector.push_back(99999999);  
     display(container.cbegin(), container.cend());

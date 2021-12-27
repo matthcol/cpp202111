@@ -239,9 +239,21 @@ void algorithms() {
     }
 
     // utiliser find_if pour trouver la 1ere Ligne dont la capacité reelle < 1000
-
-
-
+    int threshold = 1000;
+    auto itLigne = std::find_if(vLignes.cbegin(), vLignes.cend(),
+            [threshold](const auto & ligne){ return ligne.capaciteReelle() < threshold; }
+    );
+    if (itLigne != vLignes.cend()) { // on n'a pas atteint la fin sans trouver
+        // exploitation de la trouvaille avec variable intermediaire
+        const auto & ligneTrouvee = *itLigne;  // auto = Ligne
+        std::cout << "Ligne trouvee : " << ligneTrouvee.nom() << std::endl  
+                << "\tDetail : " << ligneTrouvee << std::endl;
+        // exploitation de la trouvaille sans variable intermediaire
+        std::cout << "Ligne trouvee : " << itLigne->nom() << std::endl  
+                << "\tDetail : " << *itLigne << std::endl;
+    } else {
+        std::cout << "Aucune ligne sous le seuil : " << threshold << std::endl;
+    }
 
     std::fill(capacites.begin(), capacites.end(), 0);
     displayContainer(capacites);
@@ -290,7 +302,8 @@ void testEcritureLigne() {
 }
 
 int main() {
-    testLectureLignes();
+    algorithms();
+    // testLectureLignes();
     // testEcritureLigne();
 
 
