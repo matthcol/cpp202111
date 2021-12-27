@@ -21,7 +21,7 @@ void display(
     bool endline = true)
 {
     // begin display with delimiterFirst
-    std::cout << "[";
+    std::cout << delimiterFirst;
     if (first != last) {
         // display first element
         std::cout << *first;
@@ -197,16 +197,19 @@ int main() {
     // std::cin >> c; 
 
     double data[100]; // type double[]
+    std::cout << "All data:" << std::endl;
     display(std::begin(data), std::end(data));
     data[0] = 3.14;
     data[1] = 23.4;
+    std::cout << "First 2 items:" << std::endl;
     display(std::begin(data), std::begin(data)+2); 
-    std::cout << (data[0] + data[1]) << std::endl;
+    std::cout << "Sum of first 2 items: " << (data[0] + data[1]) << std::endl;
 
     // table de double alloue dynamiquement (HEAP)
     double * bigdata = new double[500000000]; 
     bigdata[0] = 3.14;
     bigdata[1] = 23.4;
+    std::cout << "First 10 items:" << std::endl;
     display(bigdata, bigdata+10); 
     delete[] bigdata;
 
