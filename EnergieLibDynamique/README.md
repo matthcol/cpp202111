@@ -1,2 +1,4 @@
 Compiler une librairie dynamique avec g++
-g++ .\Ligne.cpp -o libligne.dll -shared
+
+- Windows : g++ Ligne.o -o libligne.dll -shared
+- Linux : g++ Ligne.o -o libligne.so -shared
